@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <p>Memoir</p>
+      <ul>
+        <li><a href="/index">Home</a></li>
+        <li><a href="about">About</a></li>
+        <li><a href="contact">Contact</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="/logout">Logout</a></li>
+        {% else %}
+        <li><a href="/login">Login</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+    {% with messages = get_flashed_messages(with_categories=True) %} {% if
+    messages %} {% for category, message in messages %} {% if category ==
+    'error' %}
+    <div class="error"><p class="message">{{ message }}</p></div>
+    {% else %}
+    <div class="success"><p class="message">{{ message }}</p></div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+    <main class="container">{% block content %}{% endblock %}</main>
+    <footer>
+      <p>&copy; {{ current_year }} Memoir All rights reserved.</p>
+    </footer>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </body>
+</html>

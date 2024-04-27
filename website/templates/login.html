@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block content %}
+<div class="login">
+  <h1>Login</h1>
+
+  <form method="POST" action="/login">
+    <div class="email">
+      <input type="email" name="email" placeholder="Your Email" autofocus="" />
+    </div>
+
+    <div class="password">
+      <input type="password" name="password" placeholder="Your Password" />
+    </div>
+    <!-- <div class="field">
+                <label class="checkbox">
+                    <input type="checkbox" name="remember">
+                    Remember me
+                </label>
+            </div> -->
+    <button>Login</button>
+  </form>
+  <p >Don't have an account? <a href="/signup">Register</a></p>
+</div>
+
+{% endblock %}
