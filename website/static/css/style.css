@@ -11,6 +11,9 @@
 /* Typography */
 body {
   font-family: "Space Grotesk", sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column
 }
 
 /* Heading Styles */
@@ -37,11 +40,28 @@ p {
   margin-bottom: 10px;
 }
 
+/* Other Styles */
+main{
+  flex-grow: 1;
+}
+
+.btn{
+  padding: 10px;
+  background-color: #fff;
+  color: #000;
+  border: 2px solid #000;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.btn:hover {
+  box-shadow: 4px 4px 0px 0px #000;
+}
+
 /* Container Styles */
 .container {
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+    padding: 10px 20px;
 }
 /* Navbar */
 .navbar {
@@ -119,22 +139,10 @@ footer {
     width: 25%;
     padding: 10px;
     margin-bottom: 10px;
-    color: #fff;
+    color: #000;
     border: 1px solid #000;
 }
 
-.login button {
-    padding: 10px;
-    background-color: #fff;
-    color: #000;
-    border: 2px solid #000;
-    cursor: pointer;
-    margin-bottom: 10px;
-}
-
-.login button:hover {
-  box-shadow: 4px 4px 0px 0px #000;
-}
 /* signup Page */
 
 .signup {
@@ -145,21 +153,30 @@ footer {
     width: 25%;
     padding: 10px;
     margin-bottom: 10px;
-    color: #fff;
+    color: #000;
     border: 1px solid #000;
 }
 
-.signup button {
-    padding: 10px;
-    background-color: #fff;
-    color: #000;
-    border: 2px solid #000;
-    cursor: pointer;
-    margin-bottom: 10px;
+
+/* Posts */
+.posts {
+  display: flex;
+  gap: 20px;
 }
 
-.signup button:hover {
-  box-shadow: 4px 4px 0px 0px #000;
+.sidebar {
+  width: 25%;
+  padding: 20px;
+}
+
+/* Create-Post */
+
+form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  color: #000;
+  border: 1px solid #000;
 }
 
 
