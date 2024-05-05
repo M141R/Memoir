@@ -4,6 +4,28 @@
   <navbar class="sidebar">
     <ul>
       <li><a href="../create-post">Create Post</a></li>
+      <li>
+        <div id="calendar">
+          <h2>Calendar</h2>
+          <h3>{{ datetime(year, month, 1).strftime('%B %Y') }}</h3>
+          {% for week in calendar.monthcalendar(year, month) %}
+          <div class="week">
+            {% for day in week %}
+            <div class="day">
+              {% if day != 0 %}
+              <a
+                href="{{ url_for('views.posts', username=current_user.username, year=year, month=month, day=day) }}"
+                class="{{ 'post-day' if datetime(year, month, day).date() in post_dates else '' }}"
+              >
+                {{day}}
+              </a>
+              {% endif %}
+            </div>
+            {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
+      </li>
     </ul>
   </navbar>
   <article>
