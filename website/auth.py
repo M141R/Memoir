@@ -1,8 +1,9 @@
-from flask import Blueprint, render_template, redirect, url_for, redirect, flash, request
+from flask import Blueprint, render_template, redirect, url_for, redirect, flash, request, current_app
 from flask_login import login_user, logout_user, login_required, current_user
 from . import db
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
+from cryptography.fernet import Fernet
 
 auth = Blueprint('auth', __name__)
 
@@ -14,7 +15,7 @@ def login():
 
         user = User.query.filter_by(email=email).first()
         if user:
-            if user.password == password:
+            if check_password_hash(user.password, password):
                 flash('Logged in successfully!', category='success')
                 login_user(user, remember=True)
                 return redirect(url_for('views.index'))
@@ -39,11 +40,13 @@ def signup():
         elif username_exists:
             flash('Username already exists.', category='error')
         else:
-            new_user = User(email=email, username=username, password=password)
+            key = Fernet.generate_key()
+            new_user = User(email=email, username=username, password=generate_password_hash(password, method='pbkdf2:sha256'), key=key)
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
             flash('User created!', category='success')
+
     return render_template('signup.html', user=current_user)
 
 @auth.route('/logout')
@@ -51,3 +54,4 @@ def signup():
 def logout():
     logout_user()
     return redirect(url_for('views.index'))
+

@@ -32,6 +32,12 @@
     <footer>
       <p>&copy; {{ current_year }} Memoir All rights reserved.</p>
     </footer>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-  </body>
+    <script src="https://cdn.tiny.cloud/1/x2ps9jdw4h5fr6kxgvu6ie8gv3dpilk9znlydv6gfftivgf9/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+      tinymce.init({
+        selector: '#text',
+        plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak codesample',
+        toolbar_mode: 'floating',
+      });
+    </script>
 </html>

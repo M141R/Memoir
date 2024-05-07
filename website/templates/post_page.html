@@ -3,7 +3,7 @@
 {% block content %}
 <article>
     <h2>{{ post.title }}</h2>
-    <p>{{ post.date_created }}</p>
-    <p>{{ post.text }}</p>
+    <p>Posted on {{ post.date_created }} in <code>{{ post.category.name }}</code></p>
+    <p>{{ plain_text | safe }}</p>
 </article>
 {% endblock %}

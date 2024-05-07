@@ -6,13 +6,21 @@ content %}
   <label for="title">Title:</label>
   <textarea name="title" id="title" class="title_post"></textarea>
   <label for="text">Text:</label>
-  <textarea name="text" id="text" class="text_post"></textarea>
+  <textarea name="text" id="text" class="text_post tinymce"></textarea>
+  <label for="category">Category:</label>
+  <select name="category" id="category">
+    {% for category in categories %}
+    <option value="{{ category.id }}">{{ category.name }}</option>
+    {% endfor %}
+  </select>
+  <label for="new_category">Or create a new category:</label>
+  <input type="text" name="new_category" id="new_category" />
   <br />
   <div>
     <button type="submit" class="btn">Post</button>
   </div>
 </form>
 
-  <a href="/index"><button type="button" class="btn">Back</button></a>
+<a href="/index"><button type="button" class="btn">Back</button></a>
 
 {% endblock %}

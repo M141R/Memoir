@@ -1,16 +1,22 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, Response
+import requests
 from flask_login import current_user, login_required
-from .models import Post, User
+from .models import Post, User, Category
 from . import db
 from datetime import datetime, timedelta
 import calendar
+from cryptography.fernet import Fernet
+import os
+
+
+
 
 views = Blueprint('views', __name__)
 
 @views.route('/')
 @views.route('/index')
 def index():
-    return render_template('index.html', user=current_user, posts=posts)
+    return render_template('index.html', user=current_user)
 
 @views.route('/profile')
 def profile():
@@ -22,19 +28,31 @@ def create_post():
     if request.method == "POST":
         text = request.form.get('text')
         title = request.form.get('title')
+        category_id = request.form.get('category')
+        new_category_name = request.form.get('new_category')
 
         if not text:
             flash('Post cannot be empty', category='error')
         elif not title:
             flash('Title cannot be empty', category='error')    
         else:
-            post = Post(text=text,title=title, author=current_user.id)
+            cipher_suite = Fernet(current_user.key) 
+            cipher_text = cipher_suite.encrypt(text.encode())  
+            if new_category_name:
+                category = Category(name=new_category_name)
+                db.session.add(category)
+                db.session.commit()
+            else:
+                category = Category.query.get(category_id)
+
+            post = Post(text=cipher_text, title=title, author=current_user.id, category=category)
             db.session.add(post)
             db.session.commit()
             flash('Post created!', category='success')
             return redirect(url_for('views.index'))
-
-    return render_template('createpost.html', user=current_user)
+        
+    categories = Category.query.all()
+    return render_template('createpost.html', user=current_user,categories=categories )
 
 @views.route("/delete-post/<id>")
 @login_required
@@ -43,7 +61,7 @@ def delete_post(id):
 
     if not post:
         flash("Post does not exisr", category='error')
-    elif current_user.id != post.id:
+    elif current_user.id != post.author:
         flash('You do not have permission to delete this post', category='error')
     else:
         db.session.delete(post)
@@ -81,8 +99,12 @@ def posts(username, year, month, day):
 @views.route('/post/<id>')
 @login_required
 def post_detail(id):
-    post = Post.query.get(id)
-    return render_template('post_page.html', post=post,user=current_user)
+    post = Post.query.filter_by(id=id).first()
+    cipher_suite = Fernet(current_user.key)
+    plain_text = cipher_suite.decrypt(post.text).decode()
+    return render_template('post_page.html',post=post, plain_text=plain_text,user=current_user)
+
+
 
 
 
