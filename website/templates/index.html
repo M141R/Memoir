@@ -1,10 +1,55 @@
-{% extends "base.html" %}
-
-{% block content %}
-<h1 class="title">
-  Memoir
-</h1>
-<h2 class="subtitle">
-  Hello World!
-</h2>
+{% extends "base.html" %}{% block title %}Home{% endblock %} {% block content %}
+<section class="hero">
+  <h1>
+    Organize Your <span class="highlight">Thoughts</span> and Memories with Ease
+  </h1>
+  <p>
+    Your personal online diary, always there for you. Capture your thoughts,
+    feelings, and experiences anytime, anywhere. Start your personal journey
+    with us today.
+  </p>
+  <a href="/register" class="btn btn-primary">Get Started</a>
+</section>
+<section class="features">
+  <h2>What Makes Us Better</h2>
+  <div class="feature_wrapper">
+    <div class="feature_card">
+      <img src="{{ url_for('static', filename='Lock.svg') }}" alt="Lock" />
+      <div class="text_wrapper">
+        <h3>Secure and Private</h3>
+        <p>
+          Your entries are encrypted and only you can access them. Your privacy
+          is our top priority.
+        </p>
+      </div>
+    </div>
+    <div class="feature_card">
+      <img src="{{ url_for('static', filename='check.svg') }}" alt="Check" />
+      <div class="text_wrapper">
+        <h3>Easy to Use</h3>
+        <p>
+          With our intuitive interface, writing in your online diary is as easy as writing in a traditional paper diary.
+        </p>
+      </div>
+    </div>
+    <div class="feature_card">
+      <img src="{{ url_for('static', filename='Tag.svg') }}" alt="Tag" />
+      <div class="text_wrapper">
+        <h3>Category</h3>
+        <p>
+          Organize your entries by category to easily find and navigate through your diary.
+        </p>
+      </div>
+    </div>
+    <div class="feature_card">
+      <img src="{{ url_for('static', filename='Mobile.svg') }}" alt="Mobile" />
+      <div class="text_wrapper">
+        <h3>Access Anywhere</h3>
+        <p>
+          Whether you're at home on your computer or on the go with your phone, your diary is always just a few clicks away.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}

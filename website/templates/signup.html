@@ -1,7 +1,7 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %}{% block title %}Register{% endblock %} {% block content %}
 <div class="signup">
   <h3>Sign Up</h3>
-
+  <br>
   <form method="POST" action="/signup">
     <div class="email">
       <input type="email" name="email" placeholder="Email" autofocus="" />

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0">
+  <defs>
+    <pattern id="dashed" patternUnits="userSpaceOnUse" width="10" height="10">
+      <path d="M 0 5 h 10" stroke="yellow" stroke-width="3" />
+    </pattern>
+  </defs>
+</svg>

@@ -6,7 +6,6 @@
       <li><a href="../create-post">Create Post</a></li>
       <li>
         <div id="calendar">
-          <h2>Calendar</h2>
           <h3>{{ datetime(year, month, 1).strftime('%B %Y') }}</h3>
           {% for week in calendar.monthcalendar(year, month) %}
           <div class="week">

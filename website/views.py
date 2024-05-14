@@ -6,8 +6,12 @@ from . import db
 from datetime import datetime, timedelta
 import calendar
 from cryptography.fernet import Fernet
+from dotenv import load_dotenv
 import os
 
+load_dotenv()
+
+tinymce_api_key = os.getenv('TINYMCE_API_KEY')
 
 
 
@@ -52,7 +56,7 @@ def create_post():
             return redirect(url_for('views.index'))
         
     categories = Category.query.all()
-    return render_template('createpost.html', user=current_user,categories=categories )
+    return render_template('createpost.html', user=current_user,categories=categories,tinymce_api_key=tinymce_api_key)
 
 @views.route("/delete-post/<id>")
 @login_required
@@ -80,6 +84,10 @@ def posts(username, year, month, day):
     if not user:
         flash('No user with that username exists', category='error')
         return redirect(url_for('views.index'))
+
+    # if not user.email_confirmed:
+    #     flash('You must confirm your email to view posts', category='error')
+    #     return redirect(url_for('views.index'))
     
     if year and month and day:
         date = datetime(year, month, day)

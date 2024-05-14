@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
     <link
       rel="stylesheet"
@@ -9,10 +11,8 @@
   </head>
   <body>
     <nav class="navbar">
-      <p>Memoir</p>
+      <p><a href="/index">Memoir</a></p>
       <ul>
-        <li><a href="/index">Home</a></li>
-        <li><a href="contact">Contact</a></li>
         {% if user.is_authenticated %}
         <li><a href="{{ url_for('views.posts', username=current_user.username) }}">My Posts</a></li>
         <li><a href="/logout">Logout</a></li>
@@ -32,7 +32,7 @@
     <footer>
       <p>&copy; {{ current_year }} Memoir All rights reserved.</p>
     </footer>
-    <script src="https://cdn.tiny.cloud/1/x2ps9jdw4h5fr6kxgvu6ie8gv3dpilk9znlydv6gfftivgf9/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/{{ tinymce_api_key }}/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
       tinymce.init({
         selector: '#text',

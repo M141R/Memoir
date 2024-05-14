@@ -4,6 +4,15 @@ from . import db
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from cryptography.fernet import Fernet
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+from itsdangerous import URLSafeTimedSerializer,SignatureExpired
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+sendgrid_api_key = os.getenv('SENDGRID_API_KEY')
 
 auth = Blueprint('auth', __name__)
 
@@ -47,6 +56,25 @@ def signup():
             login_user(new_user, remember=True)
             flash('User created!', category='success')
 
+            s = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
+            token = s.dumps(email, salt='email-confirm')
+
+            confirm_url = url_for('auth.confirm_email', token=token, _external=True)
+
+            message = Mail(
+                from_email='mihir2726@gmail.com',
+                to_emails=email,
+                subject='Verify your account',
+                html_content='<strong>Please click the following link to verify your account:</strong> <a href="{}">Confirm Email</a>'.format(confirm_url))
+            try:
+                sg = SendGridAPIClient(api_key=sendgrid_api_key)
+                response = sg.send(message)
+                print(response.status_code)
+                print(response.body)
+                print(response.headers)
+            except Exception as e:
+                print(str(e))
+
     return render_template('signup.html', user=current_user)
 
 @auth.route('/logout')
@@ -55,3 +83,20 @@ def logout():
     logout_user()
     return redirect(url_for('views.index'))
 
+
+@auth.route('/confirm_email/<token>', methods=['GET'])
+def confirm_email(token):
+    s = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
+    try:
+        email = s.loads(token, salt='email-confirm', max_age=3600)
+    except SignatureExpired:
+        flash('The confirmation link is expired.')
+        return redirect(url_for('index'))
+
+    user = User.query.filter_by(email=email).first()
+    if user:
+        user.verified = True
+        db.session.commit()
+
+    flash('Email confirmed. Please login.', category='success')
+    return redirect(url_for('auth.login'))

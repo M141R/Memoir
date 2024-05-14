@@ -1,12 +1,16 @@
 {% extends "base.html" %} {% block title %}Create Post{% endblock %} {% block
 content %}
-<h1>Make a Post</h1>
+<h1 class="heading_post">Make a Post</h1>
 
 <form method="POST" class="create-post">
-  <label for="title">Title:</label>
-  <textarea name="title" id="title" class="title_post"></textarea>
-  <label for="text">Text:</label>
-  <textarea name="text" id="text" class="text_post tinymce"></textarea>
+  <label for="title"
+    >Title:
+    <input name="title" id="title" class="title_post" />
+  </label>
+  <label for="text"
+    >Text:
+    <textarea name="text" id="text" class="text_post tinymce"></textarea>
+  </label>
   <label for="category">Category:</label>
   <select name="category" id="category">
     {% for category in categories %}
@@ -15,12 +19,11 @@ content %}
   </select>
   <label for="new_category">Or create a new category:</label>
   <input type="text" name="new_category" id="new_category" />
-  <br />
-  <div>
+  <div class="btn_post">
     <button type="submit" class="btn">Post</button>
+    <a href="/index"><button type="button" class="btn">Back</button></a>
   </div>
 </form>
 
-<a href="/index"><button type="button" class="btn">Back</button></a>
 
 {% endblock %}
