@@ -2,6 +2,14 @@
 
 {% block content %}
 <h1 class="title">
-  Welcome, User!
+  Welcome, {{ current_user.username }}!
 </h1>
+<p>Your registered email is: {{ current_user.email }}</p>
+
+{% if not current_user.email_confirmed %}
+<div class="alert alert-warning" role="alert">
+  Your email is not verified. 
+  <a href="{{ url_for('auth.resend_confirmation') }}">Click here to resend verification email</a>
+</div>
+{% endif %}
 {% endblock %}

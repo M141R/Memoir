@@ -34,6 +34,7 @@ body {
   color: var(--secondary_colour);
   display: flex;
   flex-direction: column;
+  height: 100vh;
 }
 
 p {
@@ -117,8 +118,9 @@ section {
 
 /* Container Styles */
 .container {
-  max-width: 1200px;
+  width: 1200px;
   padding: 10px 20px;
+  margin: 0 auto;
 }
 /* Navbar */
 .navbar {
@@ -144,10 +146,11 @@ section {
 
 /* Footer */
 footer {
-  background-color: #000;
+  background-color: var(--quaternary_color);
   color: #fff;
   padding: 10px;
   text-align: center;
+  margin-top: auto;
 }
 
 /* Success and Error Messages */
@@ -270,6 +273,10 @@ footer {
 .post_btn{
   display: flex;
   gap: 17px;
+}
+
+.tox .tox-tinymce {
+  height: 350px;
 }
 
 /* Calendar */

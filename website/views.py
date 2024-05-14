@@ -22,10 +22,6 @@ views = Blueprint('views', __name__)
 def index():
     return render_template('index.html', user=current_user)
 
-@views.route('/profile')
-def profile():
-    return render_template('profile.html')
-
 @views.route("/create-post", methods=['GET', 'POST'])
 @login_required
 def create_post():
@@ -85,9 +81,9 @@ def posts(username, year, month, day):
         flash('No user with that username exists', category='error')
         return redirect(url_for('views.index'))
 
-    # if not user.email_confirmed:
-    #     flash('You must confirm your email to view posts', category='error')
-    #     return redirect(url_for('views.index'))
+    if not user.email_confirmed:
+        flash('You must confirm your email to view posts', category='error')
+        return redirect(url_for('views.index'))
     
     if year and month and day:
         date = datetime(year, month, day)
@@ -111,6 +107,11 @@ def post_detail(id):
     cipher_suite = Fernet(current_user.key)
     plain_text = cipher_suite.decrypt(post.text).decode()
     return render_template('post_page.html',post=post, plain_text=plain_text,user=current_user)
+
+@views.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html', user=current_user)
 
 
 

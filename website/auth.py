@@ -95,8 +95,33 @@ def confirm_email(token):
 
     user = User.query.filter_by(email=email).first()
     if user:
+        user.email_confirmed = True
         user.verified = True
         db.session.commit()
 
     flash('Email confirmed. Please login.', category='success')
     return redirect(url_for('auth.login'))
+
+@auth.route('/resend_confirmation')
+@login_required
+def resend_confirmation():
+    s = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
+    token = s.dumps(current_user.email, salt='email-confirm')
+
+    confirm_url = url_for('auth.confirm_email', token=token, _external=True)
+
+    message = Mail(
+        from_email='mihir2726@gmail.com',
+        to_emails=current_user.email,
+        subject='Please confirm your email',
+        html_content='<strong>Please click the following link to verify your account:</strong> <a href="{}">Confirm Email</a>'.format(confirm_url))
+
+    try:
+        sg = SendGridAPIClient(os.getenv('SENDGRID_API_KEY'))
+        response = sg.send(message)
+        flash('A new confirmation email has been sent to ' + current_user.email + '.', 'info')
+    except Exception as e:
+        flash('An error occurred while sending the confirmation email.', 'error')
+
+    return redirect(url_for('views.profile'))
+
