@@ -119,14 +119,13 @@ section {
 /* Container Styles */
 .container {
   width: 1200px;
-  padding: 10px 20px;
   margin: 0 auto;
 }
 /* Navbar */
 .navbar {
-  padding: 10px;
+  padding: 10px 30px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .navbar p {
@@ -147,10 +146,11 @@ section {
 /* Footer */
 footer {
   background-color: var(--quaternary_color);
-  color: #fff;
+  color: var(--secondary_colour);
   padding: 10px;
   text-align: center;
   margin-top: auto;
+  width: 100%;
 }
 
 /* Success and Error Messages */
@@ -270,7 +270,7 @@ footer {
   color: var(--primary_color); /* adjust as needed */
 }
 
-.post_btn{
+.post_btn {
   display: flex;
   gap: 17px;
 }
@@ -344,7 +344,6 @@ footer {
   filter: blur(150px);
   z-index: -1;
 }
-
 
 /**** Features Section ****/
 
@@ -444,11 +443,99 @@ article blockquote::after {
   content: close-quote;
 }
 
-article a {
+article a h2{
   color: var(--tertiary_color);
-  text-decoration: underline;
+  text-decoration: none;
 }
 
-article a:hover {
-  text-decoration: none;
+article a h2:hover {
+  border-bottom: 5px dashed var(--tertiary_color);
+  border-bottom-style: dashed;
+}
+
+
+/* Mobile styles */
+@media only screen and (max-width: 600px) {
+  .container {
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .navbar{
+    margin-bottom: 1em;
+  }
+
+  .hero::before {
+    width: 250px;
+    height: 300px;
+  }
+  .feature_wrapper {
+    grid-template-columns: 1fr;
+  }
+  .posts {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+  }
+
+  .create-post input {
+    width: 100%;
+  }
+  .create-post select {
+    width: 100%;
+  }
+  .login input {
+    width: 100%;
+  }
+  .signup input {
+    width: 100%;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-weight: true;
+    line-height: 1.15;
+  }
+
+  h1,
+  .text-size-h1 {
+    font-weight: 600;
+    margin-top: 0;
+    font-size: 1.8em;
+  }
+
+  h2,
+  .text-size-h2 {
+    font-size: 1.6em;
+  }
+
+  h3,
+  .text-size-h3 {
+    font-size: 1.42em;
+  }
+
+  h4,
+  .text-size-h4 {
+    font-size: 1.27em;
+  }
+
+  h5,
+  .text-size-h5 {
+    font-size: 1.13em;
+  }
+
+  .text-caption {
+    font-size: 0.89em;
+  }
+
+  small,
+  .text-small {
+    font-size: 0.79em;
+  }
+  .heading_post {
+    margin-bottom: 1.5rem;
+  }
 }
