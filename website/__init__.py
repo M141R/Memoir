@@ -3,12 +3,12 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from os import path
 from flask_login import LoginManager
-from flask import Flask
 from dotenv import load_dotenv
 from flask_migrate import Migrate
 
 load_dotenv()
 tinymce_api_key = os.getenv('TINYMCE_API_KEY')
+
 
 
 db = SQLAlchemy()
@@ -17,10 +17,10 @@ DB_NAME = 'database.db'
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'helloworld'
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
-    migrate = Migrate(app, db)
+    Migrate(app, db)
     
     from .views import views
     from .auth import auth
@@ -37,8 +37,8 @@ def create_app():
 
 
     @login_manager.user_loader
-    def load_user(id):
-        return User.query.get(int(id))
+    def load_user(user_id):
+        return User.query.get(int(user_id))
 
     return app
 
