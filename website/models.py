@@ -9,6 +9,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(100))
     username = db.Column(db.String(100))
     posts = db.relationship('Post', backref='user', passive_deletes=True)
+    categories = db.relationship('Category', backref='user', lazy=True)
     date_created = db.Column(db.DateTime(timezone=True), default= func.now())
     key = db.Column(db.String(44), unique=True, nullable=False)
     email_confirmed = db.Column(db.Boolean, default=False)
@@ -25,3 +26,4 @@ class Post(db.Model):
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
