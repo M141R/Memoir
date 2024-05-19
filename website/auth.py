@@ -11,7 +11,6 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-
 sendgrid_api_key = os.getenv('SENDGRID_API_KEY')
 
 auth = Blueprint('auth', __name__)
@@ -122,6 +121,7 @@ def resend_confirmation():
         flash('A new confirmation email has been sent to ' + current_user.email + '.', 'info')
     except Exception as e:
         flash('An error occurred while sending the confirmation email.', 'error')
+        current_app.logger.error(f'Error: {e}')
 
     return redirect(url_for('views.profile'))
 
