@@ -39,7 +39,7 @@ def create_post():
             cipher_suite = Fernet(current_user.key) 
             cipher_text = cipher_suite.encrypt(text.encode())  
             if new_category_name:
-                category = Category(name=new_category_name)
+                category = Category(name=new_category_name,user_id=current_user.id)
                 db.session.add(category)
                 db.session.commit()
             else:
@@ -112,6 +112,14 @@ def post_detail(id):
 @login_required
 def profile():
     return render_template('profile.html', user=current_user)
+
+@views.route('/test_db')
+def test_db():
+    try:
+        db.session.query("1").from_statement("SELECT 1").all()
+        return 'Connected to the database'
+    except Exception as e:
+        return str(e)
 
 
 

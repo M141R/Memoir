@@ -6,8 +6,8 @@ from cryptography.fernet import Fernet
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True)
-    password = db.Column(db.String(100))
-    username = db.Column(db.String(100))
+    password = db.Column(db.String(512))
+    username = db.Column(db.String(100),unique=True)
     posts = db.relationship('Post', backref='user', passive_deletes=True)
     categories = db.relationship('Category', backref='user', lazy=True)
     date_created = db.Column(db.DateTime(timezone=True), default= func.now())

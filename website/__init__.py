@@ -15,12 +15,15 @@ db = SQLAlchemy()
 DB_NAME = 'database.db'
 
 
+
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    db_password = os.getenv('DB_PASSWORD')
+    # app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'mssql+pymssql://Zemo:{db_password}@memoir.database.windows.net:1433/memoir-database'
     db.init_app(app)
-    Migrate(app, db)
+    migrate = Migrate(app, db)
     
     from .views import views
     from .auth import auth
