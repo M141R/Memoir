@@ -8,6 +8,7 @@ import calendar
 from cryptography.fernet import Fernet
 from dotenv import load_dotenv
 import os
+from sqlalchemy import text
 
 load_dotenv()
 
@@ -116,7 +117,7 @@ def profile():
 @views.route('/test_db')
 def test_db():
     try:
-        db.session.query("1").from_statement("SELECT 1").all()
+        db.session.execute(text("SELECT 1"))
         return 'Connected to the database'
     except Exception as e:
         return str(e)
