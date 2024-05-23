@@ -50,7 +50,7 @@ def create_post():
             db.session.add(post)
             db.session.commit()
             flash('Post created!', category='success')
-            return redirect(url_for('views.index'))
+            return redirect(url_for('views.posts', username=current_user.username))
         
     categories = Category.query.all()
     return render_template('createpost.html', user=current_user,categories=categories,tinymce_api_key=tinymce_api_key)
@@ -69,7 +69,7 @@ def delete_post(id):
         db.session.commit()
         flash('Post deleted', category='success')
         
-    return redirect(url_for('views.index'))
+    return redirect(url_for('views.posts', username=current_user.username))
 
 @views.route("/posts/<username>", defaults={'year': None, 'month': None, 'day': None})
 @views.route("/posts/<username>/<int:year>/<int:month>/<int:day>")

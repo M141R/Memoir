@@ -221,12 +221,23 @@ footer {
 
 /* Posts */
 .posts {
-  display: flex;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
 }
 
+.posts_container{
+  display: flex;
+  flex-direction: column;
+}
+
+.post_wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
 .sidebar {
-  width: 25%;
   padding: 20px;
 }
 
