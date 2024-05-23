@@ -483,9 +483,11 @@ article a h2:hover {
   .feature_wrapper {
     grid-template-columns: 1fr;
   }
-  .posts {
+  .posts{
+    display: flex;
     flex-direction: column;
   }
+
   .sidebar {
     width: 100%;
   }
