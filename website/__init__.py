@@ -1,13 +1,18 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import os
+import posthog
 from os import path
 from flask_login import LoginManager
 from dotenv import load_dotenv
 from flask_migrate import Migrate
+from posthog import Posthog
+
 
 load_dotenv()
 tinymce_api_key = os.getenv('TINYMCE_API_KEY')
+posthog_api_key = os.getenv('POSTHOG_API_KEY')
+posthog = Posthog(project_api_key= posthog_api_key, host='https://analytics-proxy.netlify.app/ingest')
 
 
 

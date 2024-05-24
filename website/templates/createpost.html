@@ -3,12 +3,10 @@ content %}
 <h1 class="heading_post">Make a Post</h1>
 
 <form method="POST" class="create-post">
-  <label for="title"
-    >Title:
+  <label for="title">Title:
     <input name="title" id="title" class="title_post" />
   </label>
-  <label for="text"
-    >Text:
+  <label for="text">Text:
     <textarea name="text" id="text" class="text_post tinymce"></textarea>
   </label>
   <label for="category">Category:</label>
@@ -25,5 +23,12 @@ content %}
   </div>
 </form>
 
-
+<script src="https://cdn.tiny.cloud/1/{{ tinymce_api_key }}/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+  tinymce.init({
+    selector: '#text',
+    plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak codesample autoresize wordcount',
+    toolbar_mode: 'floating',
+  });
+</script>
 {% endblock %}

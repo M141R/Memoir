@@ -9,9 +9,13 @@ from sendgrid.helpers.mail import Mail
 from itsdangerous import URLSafeTimedSerializer,SignatureExpired
 import os
 from dotenv import load_dotenv
+import posthog
+from posthog import Posthog
 
 load_dotenv()
 sendgrid_api_key = os.getenv('SENDGRID_API_KEY')
+posthog_api_key = os.getenv('POSTHOG_API_KEY')
+posthog = Posthog(project_api_key=posthog_api_key, host='https://analytics-proxy.netlify.app/ingest')
 
 auth = Blueprint('auth', __name__)
 
@@ -26,6 +30,7 @@ def login():
             if check_password_hash(user.password, password):
                 flash('Logged in successfully!', category='success')
                 login_user(user, remember=True)
+                posthog.capture(user.id, 'User Logged in')
                 return redirect(url_for('views.index'))
             else:
                 flash('Incorrect password, try again.', category='error')
@@ -53,6 +58,7 @@ def signup():
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
+            posthog.capture(new_user.id, 'New User Signed Up')
             flash('User created!', category='success')
 
             s = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
@@ -73,7 +79,6 @@ def signup():
                 print(response.headers)
             except Exception as e:
                 print(str(e))
-
     return render_template('signup.html', user=current_user)
 
 @auth.route('/logout')

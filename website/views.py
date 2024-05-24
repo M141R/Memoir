@@ -9,10 +9,14 @@ from cryptography.fernet import Fernet
 from dotenv import load_dotenv
 import os
 from sqlalchemy import text
+import posthog
+from posthog import Posthog
 
 load_dotenv()
 
 tinymce_api_key = os.getenv('TINYMCE_API_KEY')
+posthog_api_key = os.getenv('POSTHOG_API_KEY')
+posthog = Posthog(project_api_key=posthog_api_key, host='https://analytics-proxy.netlify.app/ingest')
 
 
 
@@ -21,6 +25,7 @@ views = Blueprint('views', __name__)
 @views.route('/')
 @views.route('/index')
 def index():
+    posthog.capture('test-id', 'test-event')
     return render_template('index.html', user=current_user)
 
 @views.route("/create-post", methods=['GET', 'POST'])
