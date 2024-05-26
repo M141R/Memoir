@@ -123,9 +123,11 @@ section {
 }
 /* Navbar */
 .navbar {
-  padding: 10px 30px;
+  padding: 10px 0;
   display: flex;
   justify-content: space-between;
+  width: 1200px;
+  margin: 0 auto;
 }
 
 .navbar p {
@@ -474,6 +476,8 @@ article a h2:hover {
 
   .navbar{
     margin-bottom: 1em;
+    padding: 0 20px;
+    width: 100%;
   }
 
   .hero::before {
@@ -548,6 +552,218 @@ article a h2:hover {
   .text-small {
     font-size: 0.79em;
   }
+  .heading_post {
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Tablet Styles */
+@media only screen and (min-width: 600px) and (max-width: 768px) {
+  .container {
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .navbar{
+    margin-bottom: 1em;
+    padding: 0 20px;
+    width: 100%;
+  }
+
+  .hero::before {
+    width: 250px;
+    height: 300px;
+  }
+  .feature_wrapper {
+    grid-template-columns: 1fr;
+  }
+  .posts{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
+
+  .create-post input {
+    width: 100%;
+  }
+  .create-post select {
+    width: 100%;
+  }
+  .login input {
+    width: 100%;
+  }
+  .signup input {
+    width: 100%;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-weight: true;
+    line-height: 1.15;
+  }
+
+  h1,
+  .text-size-h1 {
+    font-weight: 600;
+    margin-top: 0;
+    font-size: 1.8em;
+  }
+
+  h2,
+  .text-size-h2 {
+    font-size: 1.6em;
+  }
+
+  h3,
+  .text-size-h3 {
+    font-size: 1.42em;
+  }
+
+  h4,
+  .text-size-h4 {
+    font-size: 1.27em;
+  }
+
+  h5,
+  .text-size-h5 {
+    font-size: 1.13em;
+  }
+
+  .text-caption {
+    font-size: 0.89em;
+  }
+
+  small,
+  .text-small {
+    font-size: 0.79em;
+  }
+  .heading_post {
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Laptop Screens */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .container {
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .navbar{
+    margin-bottom: 1em;
+    padding: 0 20px;
+    width: 100%;
+  }
+
+  .hero::before {
+    width: 250px;
+    height: 300px;
+  }
+  .sidebar {
+    width: 100%;
+  }
+
+  .create-post input {
+    width: 100%;
+  }
+  .create-post select {
+    width: 100%;
+  }
+  .login input {
+    width: 100%;
+  }
+  .signup input {
+    width: 100%;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-weight: true;
+    line-height: 1.15;
+  }
+
+  h1,
+  .text-size-h1 {
+    font-weight: 600;
+    margin-top: 0;
+    font-size: 1.8em;
+  }
+
+  h2,
+  .text-size-h2 {
+    font-size: 1.6em;
+  }
+
+  h3,
+  .text-size-h3 {
+    font-size: 1.42em;
+  }
+
+  h4,
+  .text-size-h4 {
+    font-size: 1.27em;
+  }
+
+  h5,
+  .text-size-h5 {
+    font-size: 1.13em;
+  }
+
+  .text-caption {
+    font-size: 0.89em;
+  }
+
+  small,
+  .text-small {
+    font-size: 0.79em;
+  }
+  .heading_post {
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Desktop Screens */
+@media only screen and (min-width: 1024px) and (max-width: 1200px){
+  .container {
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .navbar{
+    margin-bottom: 1em;
+    padding: 0 20px;
+    width: 100%;
+  }
+
+  .hero::before {
+    width: 250px;
+    height: 300px;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
+
+  .create-post input {
+    width: 100%;
+  }
+  .create-post select {
+    width: 100%;
+  }
+  .login input {
+    width: 100%;
+  }
+  .signup input {
+    width: 100%;
+  }
+  
   .heading_post {
     margin-bottom: 1.5rem;
   }
